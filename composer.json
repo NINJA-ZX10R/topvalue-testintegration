@@ -1,29 +1,19 @@
 {
-    "name": "magento/project-community-edition",
-    "description": "Magento Open Source",
-    "require": {
-      "magento/framework": "^2.4",
-      "php": ">=7.4.3",
-      "composer/composer": "^2.1",
-      "topvalue/testintegration": "*"
-    },
-    "repositories": [
-      {
-        "type": "vcs",
-        "url": "https://github.com/NINJA-ZX10R/topvalue-testintegration"
-      }
-    ],
-    "config": {
-      "preferred-install": "dist",
-      "use-include-path": true
-    },
+    "name": "topvalue/testintegration",
+    "description": "Topvalue Test Integration Module for Magento 2",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "proprietary",
     "autoload": {
+      "files": [
+        "registration.php"
+      ],
       "psr-4": {
-        "Magento\\": "vendor/magento/framework/src/Magento/"
+        "Topvalue\\Testintegration\\": ""
       }
     },
-    "minimum-stability": "stable",
-    "prefer-stable": true
+    "require": {
+      "php": ">=7.4",
+      "magento/framework": "*"
+    }
   }
-  
-  
