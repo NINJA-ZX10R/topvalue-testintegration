@@ -1,0 +1,43 @@
+name: Magento Build Only
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_NAME: release_${{ github.run_id }}_${{ github.run_attempt }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Build Magento (compile + static content)
+        run: |
+          php bin/magento setup:di:compile
+          php bin/magento setup:static-content:deploy -f en_US
+
+      - name: Archive build
+        run: |
+          tar -czf ${{ env.RELEASE_NAME }}.tar.gz \
+            vendor/ generated/ pub/static/ app/code/ app/etc/ composer.lock
+
+      - name: Upload artifact to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          path: ${{ env.RELEASE_NAME }}.tar.gz
