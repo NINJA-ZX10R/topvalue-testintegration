@@ -1,11 +1,11 @@
 name: Magento Build Only
 
-#on:
- # push:
-  #  branches:
-   #   - main
-    #  - develop
- # workflow_dispatch:
+on:
+  push:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
 
 jobs:
   build:

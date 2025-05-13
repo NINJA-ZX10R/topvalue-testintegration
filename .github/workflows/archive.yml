@@ -1,0 +1,28 @@
+name: Archive Module Only
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+
+    env:
+      RELEASE_NAME: testintegration_${{ github.run_id }}_${{ github.run_attempt }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Archive custom module
+        run: |
+          mkdir build
+          tar -czf build/${{ env.RELEASE_NAME }}.tar.gz app/code/Topvalue/Testintegration/ composer.json
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          path: build/${{ env.RELEASE_NAME }}.tar.gz

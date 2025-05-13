@@ -15,5 +15,7 @@
     "require": {
       "php": ">=7.4",
       "magento/framework": "*"
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
   }
