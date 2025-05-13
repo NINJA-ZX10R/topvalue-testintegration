@@ -19,7 +19,7 @@ jobs:
       - name: Archive custom module
         run: |
           mkdir build
-          tar -czf build/${{ env.RELEASE_NAME }}.tar.gz app/code/Topvalue/Testintegration/ composer.json
+          tar -czf build/${{ env.RELEASE_NAME }}.tar.gz ./ composer.json
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
